@@ -380,7 +380,12 @@
     const profileOverlay = document.getElementById("profileOverlay");
     const profileFrame = document.getElementById("profileFrame");
     const profileLoading = document.getElementById("profileLoading");
-    const PROFILE_URL = "http://127.0.0.1:4175";
+    const PROFILE_URL =
+      window.location.protocol === "file:" ||
+      window.location.hostname === "127.0.0.1" ||
+      window.location.hostname === "localhost"
+        ? "http://127.0.0.1:4175"
+        : "./index.html";
     let isLoopingToFirst = false;
     let touchStartY = 0;
     let isGlobalMuted = true;
