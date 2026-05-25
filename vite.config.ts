@@ -34,6 +34,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, 'index.html'),
+        profile: path.resolve(__dirname, 'profile.html'),
         shorts: path.resolve(__dirname, 'shorts.html'),
       },
     },
