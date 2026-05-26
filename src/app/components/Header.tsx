@@ -2,6 +2,16 @@ import { useState } from "react";
 import { ArrowLeft, Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 
+const navItems = [
+  { label: "현실", id: "problem" },
+  { label: "문제", id: "limits" },
+  { label: "해결책", id: "solution" },
+  { label: "핵심 기능", id: "features" },
+  { label: "비교", id: "compare" },
+  { label: "확장", id: "roadmap" },
+  { label: "마무리", id: "closing" },
+];
+
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -19,114 +29,81 @@ export function Header() {
       return;
     }
 
-    if (window.history.length > 1) {
-      window.history.back();
-    }
+    window.location.href = "./shorts.html";
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex-shrink-0">
-            <span className="font-medium text-lg">
-              JaeHeum Ra
-            </span>
+    <header className="fixed left-0 right-0 top-0 z-50 border-b border-[#ead9b4]/70 bg-[#fbf7ef]/88 backdrop-blur-xl supports-[backdrop-filter]:bg-[#fbf7ef]/70">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <button
+          type="button"
+          onClick={() => scrollToSection("intro")}
+          className="flex items-center gap-3 text-left"
+        >
+          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#1f1915] text-sm font-semibold text-white">
+            AI
           </div>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            <button
-              onClick={() => scrollToSection("about")}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              About
-            </button>
-            <button
-              onClick={() => scrollToSection("portfolio")}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Portfolio
-            </button>
-            <button
-              onClick={() => scrollToSection("skills")}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Skills
-            </button>
-            <button
-              onClick={() => scrollToSection("contact")}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Contact
-            </button>
-          </nav>
-
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={goBackToShorts}
-              className="hidden sm:inline-flex"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              Shorts
-            </Button>
-
-            {/* Mobile menu button */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden"
-            >
-              {isMenuOpen ? (
-                <X className="h-5 w-5" />
-              ) : (
-                <Menu className="h-5 w-5" />
-              )}
-            </Button>
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#b4882f]">AI DESIGN</p>
+            <p className="text-sm text-[#6c6053]">영상 기반 채용 플랫폼</p>
           </div>
+        </button>
+
+        <nav className="hidden items-center gap-6 md:flex">
+          {navItems.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => scrollToSection(item.id)}
+              className="text-sm font-medium text-[#6a5d50] transition-colors hover:text-[#1f1915]"
+            >
+              {item.label}
+            </button>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={goBackToShorts}
+            className="hidden rounded-full border-[#ddc38a] bg-white/80 text-[#1f1915] hover:bg-[#f7edd5] sm:inline-flex"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Shorts
+          </Button>
+
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setIsMenuOpen((open) => !open)}
+            className="rounded-full text-[#1f1915] hover:bg-[#f5ead3] md:hidden"
+          >
+            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </Button>
         </div>
       </div>
 
-      {/* Mobile Navigation */}
-      {isMenuOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-background border-b border-border">
+      {isMenuOpen ? (
+        <div className="border-t border-[#ead9b4]/70 bg-[#fbf7ef] md:hidden">
+          <div className="space-y-1 px-4 py-4 sm:px-6">
             <button
               onClick={goBackToShorts}
-              className="block px-3 py-2 text-muted-foreground hover:text-foreground transition-colors w-full text-left"
+              className="block w-full rounded-2xl px-3 py-3 text-left text-sm font-medium text-[#1f1915] hover:bg-[#f7edd5]"
             >
-              Back to Shorts
+              Shorts로 돌아가기
             </button>
-            <button
-              onClick={() => scrollToSection("about")}
-              className="block px-3 py-2 text-muted-foreground hover:text-foreground transition-colors w-full text-left"
-            >
-              About
-            </button>
-            <button
-              onClick={() => scrollToSection("portfolio")}
-              className="block px-3 py-2 text-muted-foreground hover:text-foreground transition-colors w-full text-left"
-            >
-              Portfolio
-            </button>
-            <button
-              onClick={() => scrollToSection("skills")}
-              className="block px-3 py-2 text-muted-foreground hover:text-foreground transition-colors w-full text-left"
-            >
-              Skills
-            </button>
-            <button
-              onClick={() => scrollToSection("contact")}
-              className="block px-3 py-2 text-muted-foreground hover:text-foreground transition-colors w-full text-left"
-            >
-              Contact
-            </button>
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className="block w-full rounded-2xl px-3 py-3 text-left text-sm font-medium text-[#6a5d50] hover:bg-[#f7edd5] hover:text-[#1f1915]"
+              >
+                {item.label}
+              </button>
+            ))}
           </div>
         </div>
-      )}
+      ) : null}
     </header>
   );
 }
